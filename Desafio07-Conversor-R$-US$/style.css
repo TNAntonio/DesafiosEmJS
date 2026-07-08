@@ -1,0 +1,165 @@
+/* ==========================================================
+   Conversor R$ → US$
+   Paleta inspirada nas próprias moedas: violeta do Real,
+   verde do dólar, sobre um fundo grafite de "painel de câmbio".
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #12141c;
+  --surface: #1b1f2b;
+  --surface-border: #2a2f40;
+  --real: #8b7cf0;
+  --dollar: #4fae82;
+  --text: #eef0f6;
+  --text-muted: #8991a8;
+  --focus: #d7c9ff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(139, 124, 240, 0.12), transparent 45%),
+    radial-gradient(circle at 85% 90%, rgba(79, 174, 130, 0.12), transparent 45%),
+    var(--bg);
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  color: var(--text);
+}
+
+/* Cartão principal, como um painel de casa de câmbio */
+div {
+  width: min(420px, 100%);
+}
+
+h1 {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 20px 20px 0 0;
+  padding: 28px 28px 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+h1::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--real), var(--dollar));
+  flex-shrink: 0;
+}
+
+input[type="button"],
+button {
+  display: block;
+  width: calc(100% - 56px);
+  margin: 0 28px 24px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--real), #6f5fd6);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  box-shadow: 0 8px 20px -8px rgba(139, 124, 240, 0.6);
+}
+
+input[type="button"]:hover,
+button:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+input[type="button"]:active,
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px -6px rgba(139, 124, 240, 0.5);
+}
+
+input[type="button"]:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Área de resultado, como o mostrador digital de um painel de câmbio */
+p#msg {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-top: none;
+  border-radius: 0 0 20px 20px;
+  margin: 0;
+  padding: 22px 28px 28px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+  position: relative;
+  padding-left: 44px;
+}
+
+p#msg::before {
+  content: '$';
+  position: absolute;
+  left: 20px;
+  top: 24px;
+  width: 20px;
+  height: 20px;
+  color: var(--dollar);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Rodapé */
+footer {
+  width: min(420px, 100%);
+  text-align: center;
+  padding: 16px 0;
+}
+
+footer p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.25rem;
+    padding: 22px 20px 16px;
+  }
+  input[type="button"],
+  button,
+  p#msg {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: calc(100% - 40px);
+  }
+  p#msg {
+    padding-left: 40px;
+  }
+}
